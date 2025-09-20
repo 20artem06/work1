@@ -17,6 +17,12 @@ set(SRC
     src/core/project.cpp
     src/core/session.cpp
     src/core/math_utils.cpp
+    src/ui/deleteprojectdialog.cpp
+    src/ui/graphselectiondialog.cpp
+    src/ui/onediagraphdialog.cpp
+    src/ui/twodiagraphdialog.cpp
+    src/ui/graph1dwindow.cpp
+    src/ui/graph2dwindow.cpp
 )
 
 set(HEADERS
@@ -24,6 +30,12 @@ set(HEADERS
     src/core/project.h
     src/core/session.h
     src/core/math_utils.h
+    src/ui/deleteprojectdialog.h
+    src/ui/graphselectiondialog.h
+    src/ui/onediagraphdialog.h
+    src/ui/twodiagraphdialog.h
+    src/ui/graph1dwindow.h
+    src/ui/graph2dwindow.h
 )
 
 set(FORMS
