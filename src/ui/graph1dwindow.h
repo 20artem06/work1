@@ -1,11 +1,9 @@
 #pragma once
 
 #include <QColor>
-#include <QVector>
 #include <QPointF>
-#include <memory>
-
 #include <QWidget>
+#include <QVector>
 
 #include "core/session.h"
 
@@ -13,41 +11,55 @@ namespace video {
 class Project;
 }
 
-class Graph1DWidget;
+class Graph1DPlotWidget;
 
 class Graph1DWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    struct Config {
-        video::Project *project = nullptr;
-        int projectIndex = -1;
-        int fieldIndex = 0;
-        int timeIndex = 0;
-        bool logarithmic = false;
-        bool gridLines = false;
-        QColor color = QColor(0, 0, 255);
+    explicit Graph1DWindow(const video::OneDimWindowState &state, QWidget *parent = nullptr);
+
+    void setWindowState(const video::OneDimWindowState &state);
+    const video::OneDimWindowState &windowState() const { return m_state; }
+
+    video::OneDimWindowState sessionState() const { return m_state; }
+
+    struct ExportSeries {
+        QString name;
+        QString yLabel;
+        QVector<QPointF> points;
     };
 
-    explicit Graph1DWindow(const Config &config, QWidget *parent = nullptr);
-
-    video::Project *project() const { return m_config.project; }
-    int projectIndex() const { return m_config.projectIndex; }
-    int fieldIndex() const { return m_config.fieldIndex; }
-
-    video::VideoSession1Dim sessionState() const;
+    QVector<ExportSeries> exportSeries() const;
+    QString xAxisLabel() const;
 
 private:
-    void populateData();
-    void updateWindowTitle();
+    struct SeriesData {
+        video::VideoSession1Dim state;
+        QVector<QPointF> points;
+        QString xLabel;
+        QString yLabel;
+        float minValue = 0.0f;
+        float maxValue = 0.0f;
+    };
 
-    Config m_config;
-    Graph1DWidget *m_widget = nullptr;
-    QVector<QPointF> m_points;
-    QString m_xAxisLabel;
-    QString m_yAxisLabel;
-    float m_minValue = 0.0f;
-    float m_maxValue = 0.0f;
+    struct VisualSeries {
+        QPolygonF polyline;
+        QColor color;
+        Qt::PenStyle style;
+        QString name;
+        float minValue = 0.0f;
+        float maxValue = 0.0f;
+    };
+
+    void rebuildData();
+    void updateWindowTitle();
+    void updatePlot();
+    void ensureSeriesIndices(video::VideoSession1Dim &session, const video::Field &field) const;
+
+    video::OneDimWindowState m_state;
+    QVector<SeriesData> m_series;
+    Graph1DPlotWidget *m_plotWidget = nullptr;
 };
 

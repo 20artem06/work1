@@ -2,8 +2,8 @@
 
 #include <QColor>
 #include <QImage>
-#include <QWidget>
 #include <QVector>
+#include <QWidget>
 
 #include "core/session.h"
 
@@ -18,31 +18,24 @@ class Graph2DWindow : public QWidget
     Q_OBJECT
 
 public:
-    struct Config {
-        video::Project *project = nullptr;
-        int projectIndex = -1;
-        int fieldIndex = 0;
-        int timeIndex = 0;
-        bool logarithmic = false;
-        bool gridLines = false;
-    };
+    explicit Graph2DWindow(const video::VideoSession2Dim &state, QWidget *parent = nullptr);
 
-    explicit Graph2DWindow(const Config &config, QWidget *parent = nullptr);
+    void setWindowState(const video::VideoSession2Dim &state);
+    video::VideoSession2Dim sessionState() const { return m_state; }
 
-    video::Project *project() const { return m_config.project; }
-    int projectIndex() const { return m_config.projectIndex; }
-    int fieldIndex() const { return m_config.fieldIndex; }
-
-    video::VideoSession2Dim sessionState() const;
+    QVector<double> xAxis() const { return m_xAxis; }
+    QVector<double> yAxis() const { return m_yAxis; }
+    QVector<float> values() const { return m_values; }
 
 private:
-    void populateData();
+    void rebuildImage();
     void updateWindowTitle();
 
-    Config m_config;
+    video::VideoSession2Dim m_state;
     Graph2DWidget *m_widget = nullptr;
     QVector<double> m_xAxis;
     QVector<double> m_yAxis;
+    QImage m_image;
     QVector<float> m_values;
     float m_minValue = 0.0f;
     float m_maxValue = 0.0f;

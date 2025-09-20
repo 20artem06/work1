@@ -12,6 +12,7 @@
 #include <QMdiSubWindow>
 #include <QMessageBox>
 #include <QRect>
+#include <QTextStream>
 #include <QStatusBar>
 #include <QToolBar>
 #include <QDockWidget>
@@ -27,8 +28,8 @@
 #include "ui/graph1dwindow.h"
 #include "ui/graph2dwindow.h"
 #include "ui/graphselectiondialog.h"
-#include "ui/onediagraphdialog.h"
-#include "ui/twodiagraphdialog.h"
+#include "ui/graph1dconfigdialog.h"
+#include "ui/graph2dconfigdialog.h"
 
 namespace {
 QString displayNameForProject(const video::Project &project, const QString &fallback)
@@ -242,11 +243,17 @@ void MainWindow::removeWindowsForProject(video::Project *project)
     for (QMdiSubWindow *subWindow : subWindows) {
         QWidget *widget = subWindow->widget();
         if (auto *graph1D = qobject_cast<Graph1DWindow *>(widget)) {
-            if (graph1D->project() == project) {
+            const auto state = graph1D->sessionState();
+            const bool containsProject = std::any_of(state.graphs.begin(), state.graphs.end(),
+                                                     [project](const video::VideoSession1Dim &graph) {
+                                                         return graph.project == project;
+                                                     });
+            if (containsProject) {
                 subWindow->close();
             }
         } else if (auto *graph2D = qobject_cast<Graph2DWindow *>(widget)) {
-            if (graph2D->project() == project) {
+            const auto state = graph2D->sessionState();
+            if (state.project == project) {
                 subWindow->close();
             }
         }
@@ -284,25 +291,36 @@ void MainWindow::createGraph()
 void MainWindow::createOneDimensionalGraph()
 {
     auto projects = projectPointers();
-    OneDimGraphDialog dialog(projects, this);
+    Graph1DConfigDialog dialog(projects, this);
     if (dialog.exec() != QDialog::Accepted) {
         return;
     }
 
-    const auto result = dialog.result();
-    if (!result.project || result.projectIndex < 0 || result.projectIndex >= static_cast<int>(m_projects.size())) {
+    auto result = dialog.result();
+    if (result.windowState.graphs.isEmpty()) {
         return;
     }
 
-    Graph1DWindow::Config config;
-    config.project = result.project;
-    config.projectIndex = result.projectIndex;
-    config.fieldIndex = result.fieldIndex;
-    config.timeIndex = result.timeIndex;
-    config.logarithmic = result.logarithmic;
-    config.gridLines = result.gridLines;
+    QVector<video::VideoSession1Dim> filtered;
+    filtered.reserve(result.windowState.graphs.size());
+    for (auto &graph : result.windowState.graphs) {
+        if (graph.projectIndex >= 0 && graph.projectIndex < static_cast<int>(m_projects.size())) {
+            graph.project = m_projects[graph.projectIndex].project.get();
+        }
+        if (!graph.project) {
+            continue;
+        }
+        filtered.append(graph);
+    }
 
-    auto *widget = new Graph1DWindow(config);
+    if (filtered.isEmpty()) {
+        QMessageBox::warning(this, tr("Create graph"), tr("No valid series remain in the configuration."));
+        return;
+    }
+
+    result.windowState.graphs = filtered;
+
+    auto *widget = new Graph1DWindow(result.windowState);
     ui->mdiArea->addSubWindow(widget);
     widget->show();
 }
@@ -310,32 +328,81 @@ void MainWindow::createOneDimensionalGraph()
 void MainWindow::createTwoDimensionalGraph()
 {
     auto projects = projectPointers();
-    TwoDimGraphDialog dialog(projects, this);
+    Graph2DConfigDialog dialog(projects, this);
     if (dialog.exec() != QDialog::Accepted) {
         return;
     }
 
-    const auto result = dialog.result();
-    if (!result.project || result.projectIndex < 0 || result.projectIndex >= static_cast<int>(m_projects.size())) {
+    auto result = dialog.result().session;
+    if (result.projectIndex >= 0 && result.projectIndex < static_cast<int>(m_projects.size())) {
+        result.project = m_projects[result.projectIndex].project.get();
+    }
+    if (!result.project) {
+        QMessageBox::warning(this, tr("Create graph"), tr("The selected project is no longer loaded."));
         return;
     }
 
-    Graph2DWindow::Config config;
-    config.project = result.project;
-    config.projectIndex = result.projectIndex;
-    config.fieldIndex = result.fieldIndex;
-    config.timeIndex = result.timeIndex;
-    config.logarithmic = result.logarithmic;
-    config.gridLines = result.gridLines;
-
-    auto *widget = new Graph2DWindow(config);
+    auto *widget = new Graph2DWindow(result);
     ui->mdiArea->addSubWindow(widget);
     widget->show();
 }
 
 void MainWindow::modifyGraph()
 {
-    QMessageBox::information(this, tr("Modify graph"), tr("Graph editing is not yet implemented. Close the window and create a new graph."));
+    QMdiSubWindow *active = ui->mdiArea->activeSubWindow();
+    if (!active) {
+        QMessageBox::information(this, tr("Modify graph"), tr("Select a graph window to modify."));
+        return;
+    }
+
+    QWidget *widget = active->widget();
+    auto projects = projectPointers();
+
+    if (auto *graph1D = qobject_cast<Graph1DWindow *>(widget)) {
+        Graph1DConfigDialog dialog(projects, this);
+        dialog.setInitialState(graph1D->sessionState());
+        if (dialog.exec() != QDialog::Accepted) {
+            return;
+        }
+
+        auto state = dialog.result().windowState;
+        for (auto &graph : state.graphs) {
+            if (graph.projectIndex >= 0 && graph.projectIndex < static_cast<int>(m_projects.size())) {
+                graph.project = m_projects[graph.projectIndex].project.get();
+            }
+            if (!graph.project) {
+                QMessageBox::warning(this, tr("Modify graph"), tr("One of the series references a closed project."));
+                return;
+            }
+        }
+
+        graph1D->setWindowState(state);
+        active->setWindowTitle(graph1D->windowTitle());
+        return;
+    }
+
+    if (auto *graph2D = qobject_cast<Graph2DWindow *>(widget)) {
+        Graph2DConfigDialog dialog(projects, this);
+        dialog.setInitialState(graph2D->sessionState());
+        if (dialog.exec() != QDialog::Accepted) {
+            return;
+        }
+
+        auto state = dialog.result().session;
+        if (state.projectIndex >= 0 && state.projectIndex < static_cast<int>(m_projects.size())) {
+            state.project = m_projects[state.projectIndex].project.get();
+        }
+        if (!state.project) {
+            QMessageBox::warning(this, tr("Modify graph"), tr("The selected project is no longer loaded."));
+            return;
+        }
+
+        graph2D->setWindowState(state);
+        active->setWindowTitle(graph2D->windowTitle());
+        return;
+    }
+
+    QMessageBox::information(this, tr("Modify graph"), tr("Only graph windows can be modified."));
 }
 
 void MainWindow::loadSession()
@@ -379,7 +446,11 @@ void MainWindow::loadSession()
 void MainWindow::restoreOneDimGraphs(const video::VideoSaveState &state)
 {
     for (const video::OneDimWindowState &windowState : state.oneDimGraphs) {
-        for (const video::VideoSession1Dim &graphState : windowState.graphs) {
+        video::OneDimWindowState local = windowState;
+        QVector<video::VideoSession1Dim> filtered;
+        filtered.reserve(local.graphs.size());
+
+        for (video::VideoSession1Dim graphState : local.graphs) {
             if (graphState.projectIndex < 0 || graphState.projectIndex >= static_cast<int>(m_projects.size())) {
                 continue;
             }
@@ -390,49 +461,36 @@ void MainWindow::restoreOneDimGraphs(const video::VideoSaveState &state)
             if (graphState.fieldIndex < 0 || graphState.fieldIndex >= project->fields().size()) {
                 continue;
             }
-
-            Graph1DWindow::Config config;
-            config.project = project;
-            config.projectIndex = graphState.projectIndex;
-            config.fieldIndex = graphState.fieldIndex;
-            config.timeIndex = graphState.xMin;
-            config.logarithmic = graphState.logarithmic;
-            config.gridLines = graphState.gridLines;
-            config.color = graphState.color;
-
-            auto *widget = new Graph1DWindow(config);
-            if (!graphState.name.isEmpty()) {
-                widget->setWindowTitle(graphState.name);
-            }
-            ui->mdiArea->addSubWindow(widget);
-            widget->show();
+            graphState.project = project;
+            filtered.append(graphState);
         }
+
+        if (filtered.isEmpty()) {
+            continue;
+        }
+
+        local.graphs = filtered;
+        auto *widget = new Graph1DWindow(local);
+        ui->mdiArea->addSubWindow(widget);
+        widget->show();
     }
 }
 
 void MainWindow::restoreTwoDimGraphs(const video::VideoSaveState &state)
 {
     for (const video::VideoSession2Dim &graphState : state.twoDimGraphs) {
-        if (graphState.projectIndex < 0 || graphState.projectIndex >= static_cast<int>(m_projects.size())) {
+        video::VideoSession2Dim local = graphState;
+        if (local.projectIndex >= 0 && local.projectIndex < static_cast<int>(m_projects.size())) {
+            local.project = m_projects[local.projectIndex].project.get();
+        }
+        if (!local.project) {
             continue;
         }
-        video::Project *project = m_projects[graphState.projectIndex].project.get();
-        if (!project) {
-            continue;
-        }
-        if (graphState.fieldIndex < 0 || graphState.fieldIndex >= project->fields().size()) {
+        if (local.fieldIndex < 0 || local.fieldIndex >= local.project->fields().size()) {
             continue;
         }
 
-        Graph2DWindow::Config config;
-        config.project = project;
-        config.projectIndex = graphState.projectIndex;
-        config.fieldIndex = graphState.fieldIndex;
-        config.timeIndex = graphState.x1Min;
-        config.logarithmic = graphState.logarithmic;
-        config.gridLines = graphState.gridLines;
-
-        auto *widget = new Graph2DWindow(config);
+        auto *widget = new Graph2DWindow(local);
         ui->mdiArea->addSubWindow(widget);
         widget->show();
     }
@@ -467,12 +525,14 @@ void MainWindow::saveSession()
     for (QMdiSubWindow *subWindow : subWindows) {
         QWidget *widget = subWindow->widget();
         if (auto *graph1D = qobject_cast<Graph1DWindow *>(widget)) {
-            video::VideoSession1Dim graph = graph1D->sessionState();
-            video::OneDimWindowState windowState;
-            windowState.graphs.append(graph);
+            video::OneDimWindowState windowState = graph1D->sessionState();
+            for (auto &graph : windowState.graphs) {
+                graph.projectIndex = indexForProject(graph.project);
+            }
             state.oneDimGraphs.append(windowState);
         } else if (auto *graph2D = qobject_cast<Graph2DWindow *>(widget)) {
             video::VideoSession2Dim graph = graph2D->sessionState();
+            graph.projectIndex = indexForProject(graph.project);
             state.twoDimGraphs.append(graph);
         }
     }
@@ -500,7 +560,83 @@ void MainWindow::saveMovie()
 
 void MainWindow::saveData()
 {
-    QMessageBox::information(this, tr("Save data"), tr("Data export is not implemented in this Qt version."));
+    QMdiSubWindow *active = ui->mdiArea->activeSubWindow();
+    if (!active) {
+        QMessageBox::information(this, tr("Save data"), tr("Select a graph window to export."));
+        return;
+    }
+
+    QWidget *widget = active->widget();
+    QString filter = tr("CSV files (*.csv)");
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save data"), QString(), filter);
+    if (filePath.isEmpty()) {
+        return;
+    }
+    if (!filePath.endsWith(QStringLiteral(".csv"), Qt::CaseInsensitive)) {
+        filePath += QStringLiteral(".csv");
+    }
+
+    QFile file(filePath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
+        QMessageBox::critical(this, tr("Save data"), tr("Unable to open file for writing."));
+        return;
+    }
+
+    QTextStream stream(&file);
+
+    if (auto *graph1D = qobject_cast<Graph1DWindow *>(widget)) {
+        const auto series = graph1D->exportSeries();
+        if (series.isEmpty()) {
+            QMessageBox::information(this, tr("Save data"), tr("There is no data to export."));
+            return;
+        }
+
+        stream << "# " << graph1D->windowTitle() << "\n";
+        const QString xLabel = graph1D->xAxisLabel();
+        for (const auto &entry : series) {
+            stream << "# " << entry.name << "\n";
+            stream << xLabel << "," << entry.yLabel << "\n";
+            for (const QPointF &point : entry.points) {
+                stream << point.x() << "," << point.y() << "\n";
+            }
+            stream << "\n";
+        }
+    } else if (auto *graph2D = qobject_cast<Graph2DWindow *>(widget)) {
+        const QVector<double> xAxis = graph2D->xAxis();
+        const QVector<double> yAxis = graph2D->yAxis();
+        const QVector<float> values = graph2D->values();
+        if (xAxis.isEmpty() || yAxis.isEmpty() || values.isEmpty()) {
+            QMessageBox::information(this, tr("Save data"), tr("There is no data to export."));
+            return;
+        }
+
+        const int width = xAxis.size();
+        const int height = yAxis.size();
+        if (width * height != values.size()) {
+            QMessageBox::information(this, tr("Save data"), tr("The grid is inconsistent."));
+            return;
+        }
+
+        stream << "# " << graph2D->windowTitle() << "\n";
+        stream << "Y/X";
+        for (double x : xAxis) {
+            stream << "," << x;
+        }
+        stream << "\n";
+
+        for (int row = 0; row < height; ++row) {
+            stream << yAxis.at(row);
+            for (int col = 0; col < width; ++col) {
+                stream << "," << values.at(row * width + col);
+            }
+            stream << "\n";
+        }
+    } else {
+        QMessageBox::information(this, tr("Save data"), tr("Only graph windows can export data."));
+        return;
+    }
+
+    statusBar()->showMessage(tr("Data exported"), 5000);
 }
 
 void MainWindow::toggleToolbar(bool checked)

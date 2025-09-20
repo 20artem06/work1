@@ -7,6 +7,7 @@
 
 namespace video {
 class Project;
+struct VideoSaveState;
 }
 
 QT_BEGIN_NAMESPACE
