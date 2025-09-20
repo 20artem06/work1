@@ -1,0 +1,718 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian (Russia) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif\r\n"
+    "#include ""res\\video.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_FIELD_2 DIALOGEX 0, 0, 324, 230
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Graphic"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CTEXT           "&Project",IDC_STATIC,13,7,21,12
+    COMBOBOX        IDC_PROJECT,37,7,64,71,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "&Field",IDC_STATIC,7,22,185,51
+    CTEXT           "Name",IDC_STATIC,15,35,21,12
+    COMBOBOX        IDC_FIELD,37,36,59,91,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "MIN",IDC_STATIC,15,56,16,12
+    EDITTEXT        IDC_FMIN,37,54,59,12,ES_AUTOHSCROLL
+    RTEXT           "MAX ",IDC_STATIC,103,56,16,12
+    EDITTEXT        IDC_FMAX,126,54,59,12,ES_AUTOHSCROLL
+    GROUPBOX        "Argument &1",IDC_STATIC,7,76,185,52
+    LTEXT           "Name",IDC_STATIC,15,90,23,12
+    COMBOBOX        IDC_ARG1,37,89,59,64,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "MIN",IDC_STATIC,15,112,16,14
+    COMBOBOX        IDC_ARG1MIN,37,110,59,92,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "MAX",IDC_STATIC,103,112,16,12
+    COMBOBOX        IDC_ARG1MAX,126,110,59,92,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Argument &2",IDC_STATIC,7,133,185,52
+    LTEXT           "Name",IDC_STATIC,15,146,23,12
+    COMBOBOX        IDC_ARG2,37,145,59,56,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "MIN",IDC_STATIC,15,167,16,12
+    COMBOBOX        IDC_ARG2MIN,37,166,59,57,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "MAX",IDC_STATIC,103,167,16,12
+    COMBOBOX        IDC_ARG2MAX,126,166,59,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Pa&rameters",IDC_STATIC,202,39,114,89
+    LISTBOX         IDC_PARAM,209,69,100,53,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Arg",IDC_ARGNAME,210,51,39,12
+    COMBOBOX        IDC_ARGUMENT,250,51,59,66,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Grid &Lines",IDC_GRIDLINES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,203,174,52,14
+    LTEXT           "&N grids ",IDC_STATIC,266,176,26,11
+    EDITTEXT        IDC_NGRIDS,294,175,22,12,ES_AUTOHSCROLL
+    CTEXT           " ",IDC_COL,203,137,50,35,WS_BORDER | NOT WS_GROUP
+    PUSHBUTTON      "ColorMax",IDC_COLORMAX,266,140,50,14
+    PUSHBUTTON      "ColorMin",IDC_COLORMIN,266,156,50,14
+    PUSHBUTTON      "OK",IDC_OK,264,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,264,23,50,14
+    ICON            IDR_MAINFRAME,IDC_STATIC,209,10,20,20
+    CONTROL         "Линии уровня",IDC_LINES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,203,188,63,10
+    CONTROL         "Облако",IDC_CLOUD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,203,199,41,10
+    EDITTEXT        IDC_EDIT1,142,207,40,14,ES_AUTOHSCROLL
+    LTEXT           "Палитра",IDC_STATIC,87,209,30,8
+    PUSHBUTTON      "Load Preset",IDC_LOADPRESET,154,7,50,14
+    PUSHBUTTON      "Save Preset",IDC_SAVEPRESET,101,6,50,14
+    CONTROL         "Log",IDC_LOG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,203,209,28,10
+    CONTROL         "Авто",IDC_GRDAUTO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,267,188,32,10
+END
+
+IDD_AVI_DLG DIALOG 0, 0, 239, 158
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Сохранение avi-файла"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,39,137,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,107,137,50,14
+    EDITTEXT        IDC_AVINAME,72,14,100,14,ES_AUTOHSCROLL
+    LTEXT           "Имя файла",IDC_STATIC,18,14,47,8
+    PUSHBUTTON      "Изменить...",IDC_CHANGENAME,182,14,50,14
+    LTEXT           "Начало",IDC_STATIC,17,43,34,8
+    LTEXT           "Конец",IDC_STATIC,17,60,25,8
+    COMBOBOX        IDC_TIME_START,73,42,76,78,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TIME_END,73,58,76,78,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Сохранить минимум/максимум",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,97,144,10
+    EDITTEXT        IDC_DELAY,109,77,40,14,ES_AUTOHSCROLL
+    LTEXT           "Длительность кадра (мс)",IDC_STATIC,17,81,82,8
+END
+
+IDD_COLORS DIALOG 0, 0, 285, 159
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,62,138,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,189,138,50,14
+    LISTBOX         IDC_VALUES,35,13,38,89,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_RESULT,"Static",SS_WHITERECT,31,114,229,11
+    EDITTEXT        IDC_VAL,90,28,40,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_COLOR,"Static",SS_BLACKFRAME,146,30,35,11
+    PUSHBUTTON      "Добавить",IDC_ADD,90,56,50,14
+    PUSHBUTTON      "Удалить",IDC_DELETE,147,56,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_FIELD_2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 316
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 229
+    END
+
+    IDD_AVI_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 232
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 151
+    END
+
+    IDD_COLORS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 278
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 152
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_FIELD_2 AFX_DIALOG_LAYOUT
+BEGIN
+    0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    100, 100, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0
+END
+
+#endif    // Russian (Russia) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SELECTGRAPH DIALOGEX 0, 0, 116, 63
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select graph type"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,3,46,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,62,46,50,14
+    CONTROL         "&ONE-Dim graphs",IDC_TYPE0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,22,10,70,10
+    CONTROL         "&TWO-Dim graph",IDC_TYPE1,"Button",BS_AUTORADIOBUTTON,22,26,70,10
+END
+
+IDD_ABOUTBOX DIALOG 0, 0, 145, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About video"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,13,18,18,20
+    LTEXT           "Version 1.01",IDC_STATIC,41,23,60,8,SS_NOPREFIX
+    LTEXT           "Copyright © 2000-2001",IDC_STATIC,41,34,72,8
+    DEFPUSHBUTTON   "OK",IDOK,106,10,32,14,WS_GROUP
+    LTEXT           "Video program",IDC_STATIC,41,10,60,8
+END
+
+IDD_FIELD_1 DIALOGEX 0, 0, 389, 205
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Graphic"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    LTEXT           "&Graphs",IDC_STATIC,13,8,30,11
+    LISTBOX         IDC_GRAPH,7,19,61,78,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Add graph ",IDC_ADD,13,100,50,14
+    PUSHBUTTON      "&Delete graph ",IDC_DEL,13,116,50,14
+    CTEXT           "&Project",IDC_STATIC,79,8,21,12
+    COMBOBOX        IDC_PROJECT,103,8,59,71,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "&Field",IDC_STATIC,73,24,185,51
+    CTEXT           "Name",IDC_STATIC,81,38,21,12
+    COMBOBOX        IDC_FIELD,103,38,59,91,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "MIN",IDC_STATIC,81,58,16,12
+    EDITTEXT        IDC_FMIN,103,56,59,12,ES_AUTOHSCROLL
+    RTEXT           "MAX ",IDC_STATIC,169,58,16,12
+    EDITTEXT        IDC_FMAX,193,56,59,12,ES_AUTOHSCROLL
+    GROUPBOX        "Argument",IDC_STATIC,73,78,185,52
+    LTEXT           "Name",IDC_STATIC,81,91,21,12
+    COMBOBOX        IDC_ARG1,103,92,59,64,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "MIN",IDC_STATIC,81,114,16,14
+    COMBOBOX        IDC_ARG1MIN,103,111,59,78,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    RTEXT           "MAX",IDC_STATIC,169,114,16,12
+    COMBOBOX        IDC_ARG1MAX,193,111,59,77,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Pa&rameters",IDC_STATIC,267,41,114,89
+    LISTBOX         IDC_PARAM,275,70,100,53,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Arg",IDC_ARGNAME,275,52,39,12
+    COMBOBOX        IDC_ARGUMENT,315,52,59,77,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CTEXT           "",IDC_COL,267,146,50,14,WS_BORDER | NOT WS_GROUP
+    RTEXT           "&Style",IDC_STATIC,331,134,16,10
+    COMBOBOX        IDC_STYLE,331,146,50,67,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Color",IDC_COLOR,331,166,50,14
+    CONTROL         "Grid &Lines",IDC_GRIDLINES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,267,167,50,14
+    GROUPBOX        "Graph axis properties",IDC_STATIC,7,135,252,66
+    CONTROL         "Fi&xed axes",IDC_AXE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,17,147,57,10
+    CONTROL         "&Unfixed axes",IDC_AXE1,"Button",BS_AUTORADIOBUTTON,17,158,57,10
+    CONTROL         "Ax&es from:",IDC_AXE2,"Button",BS_AUTORADIOBUTTON,17,170,45,10
+    COMBOBOX        IDC_AXEGRAPH,68,168,59,72,CBS_DROPDOWNLIST | WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "X min",IDC_STATIC,133,147,21,12
+    EDITTEXT        IDC_XMIN,156,145,35,14,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "X max",IDC_STATIC,195,147,21,12
+    EDITTEXT        IDC_XMAX,217,145,35,14,ES_AUTOHSCROLL
+    LTEXT           "Y min",IDC_STATIC,133,168,21,12
+    EDITTEXT        IDC_YMIN,156,166,35,14,ES_AUTOHSCROLL
+    LTEXT           "Y max",IDC_STATIC,195,168,21,12
+    EDITTEXT        IDC_YMAX,217,166,35,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "OK",IDC_OK,331,8,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,331,24,50,14
+    ICON            IDR_MAINFRAME,IDC_STATIC,275,11,21,20
+    PUSHBUTTON      "Load Preset",IDC_LOADPRESET,217,8,50,14
+    PUSHBUTTON      "Save Preset",IDC_SAVEPRESET,165,8,50,14
+    CONTROL         "Log",IDC_LOG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,183,28,10
+END
+
+IDD_DELPROJECT DIALOG 0, 0, 159, 102
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Close project"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Project list",IDC_STATIC,7,0,86,94
+    LISTBOX         IDC_PROJECTLIST,15,10,70,76,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "Close",IDOK,102,10,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,102,30,50,14
+    DEFPUSHBUTTON   "Close &All",ID_DEL_ALL,102,72,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_SELECTGRAPH, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 60
+    END
+
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 138
+        TOPMARGIN, 10
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_FIELD_1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 381
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 201
+    END
+
+    IDD_DELPROJECT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 152
+        BOTTOMMARGIN, 94
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_FIELD_1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_SELECTGRAPH AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_FIELD_1 DLGINIT
+BEGIN
+    IDC_STYLE, 0x403, 6, 0
+0x6f53, 0x696c, 0x0064, 
+    IDC_STYLE, 0x403, 5, 0
+0x6144, 0x6873, "\000" 
+    IDC_STYLE, 0x403, 9, 0
+0x6144, 0x6873, 0x442d, 0x746f, "\000" 
+    IDC_STYLE, 0x403, 13, 0
+0x6144, 0x6873, 0x442d, 0x746f, 0x442d, 0x746f, "\000" 
+    IDC_STYLE, 0x403, 4, 0
+0x6f44, 0x0074, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\video.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_FILE_OPENPROJECT
+    SEPARATOR
+    BUTTON      ID_FILE_SAVEDATA
+    BUTTON      ID_FILE_UPDATE
+    BUTTON      IDD_SAVE_WMF
+    SEPARATOR
+    BUTTON      ID_RESIZE
+    SEPARATOR
+    BUTTON      ID_GRAPH_NEW
+    BUTTON      ID_GRAPH_MODIFY
+    BUTTON      ID_WINDOW_CLOSEALL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open project...",            ID_FILE_OPENPROJECT
+        MENUITEM "Load session",                ID_FILE_LOADSESSION
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About video...",             ID_APP_ABOUT
+    END
+END
+
+IDR_VIDEO MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open project...",            ID_FILE_OPENPROJECT
+        MENUITEM "Load Session",                ID_FILE_LOADSESSION
+        MENUITEM "&Close project...",           ID_FILE_CLOSE
+        MENUITEM "Close &All projects ",        ID_FILE_CLOSE_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "Save &data...",               ID_FILE_SAVEDATA
+        MENUITEM "Save session",                ID_FILE_SAVESESSION
+        MENUITEM "Save &movie...",              ID_FILE_SAVEPICT
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Graph"
+    BEGIN
+        MENUITEM "&New...",                     ID_GRAPH_NEW
+        MENUITEM "&Modify...",                  ID_GRAPH_MODIFY
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
+        MENUITEM "Tile &horizontally",          ID_WINDOW_TILE_HORZ
+        MENUITEM "Tile &vertically",            ID_WINDOW_TILE_VERT
+        MENUITEM "Arrange &Icons",              ID_WINDOW_ARRANGE
+        MENUITEM SEPARATOR
+        MENUITEM "Close &All",                  ID_WINDOW_CLOSEALL
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About video...",             ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "O",            ID_FILE_OPEN,           VIRTKEY, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "FileDescription", "VIDEO MFC Application"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "VIDEO"
+            VALUE "LegalCopyright", "Copyright © 2000"
+            VALUE "OriginalFilename", "VIDEO.EXE"
+            VALUE "ProductName", "VIDEO Application"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "video"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "video"
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_OPEN            "Open data description file\nOpen"
+    ID_FILE_CLOSE           "Close current project\nClose"
+END
+
+STRINGTABLE
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application\nExit"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows Horz"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows Vert"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE
+BEGIN
+    ID_HELP_INFO            "Project information\nProject information"
+    ID_GRAPH_ADD            "Add graphics window\nAdd graph"
+    ID_FILE_SAVEPICT        "Save movie\nSave movie"
+    ID_GRAPH_NEW            "Create new graph\nNew graph"
+    IDS_FILE_NOT_FOUND      "File error!"
+    ID_FILE_SAVEDATA        "Save current data\nSave data"
+    ID_GRAPH_MODIFY         "Modify current graph\nModify graph"
+    ID_FILE_OPENPROJECT     "Open data description file\nOpen"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_CLOSE_ALL       "Close all projects and graphs\nClose all"
+END
+
+STRINGTABLE
+BEGIN
+    ID_PROGRESS             "File reading"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WINDOW_CLOSEALL      "Close all graph windows\nClose all windows"
+END
+
+STRINGTABLE
+BEGIN
+    ID_RESIZE               "Set size 640*480"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif
+#include "res\video.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
