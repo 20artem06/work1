@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Video Analysis</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="centralLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="contentsMargins">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>0</width>
+      <height>0</height>
+     </rect>
+    </property>
+    <item>
+     <widget class="QMdiArea" name="mdiArea"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QDockWidget" name="projectDock">
+   <property name="windowTitle">
+    <string>Projects</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="dockLayout">
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <property name="contentsMargins">
+      <rect>
+       <x>6</x>
+       <y>6</y>
+       <width>6</width>
+       <height>6</height>
+      </rect>
+     </property>
+     <item>
+      <widget class="QListWidget" name="projectList">
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionOpenProject"/>
+    <addaction name="actionLoadSession"/>
+    <addaction name="separator"/>
+    <addaction name="actionCloseProject"/>
+    <addaction name="actionCloseAllProjects"/>
+    <addaction name="separator"/>
+    <addaction name="actionSaveData"/>
+    <addaction name="actionSaveSession"/>
+    <addaction name="actionSaveMovie"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionToolbar"/>
+    <addaction name="actionStatusBar"/>
+    <addaction name="actionProjectDock"/>
+   </widget>
+   <widget class="QMenu" name="menuGraph">
+    <property name="title">
+     <string>&amp;Graph</string>
+    </property>
+    <addaction name="actionGraphNew"/>
+    <addaction name="actionGraphModify"/>
+   </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>&amp;Window</string>
+    </property>
+    <addaction name="actionWindowCascade"/>
+    <addaction name="actionWindowTileH"/>
+    <addaction name="actionWindowTileV"/>
+    <addaction name="actionWindowArrange"/>
+    <addaction name="separator"/>
+    <addaction name="actionWindowCloseAll"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuGraph"/>
+   <addaction name="menuWindow"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <number>4</number>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <action name="actionOpenProject">
+   <property name="text">
+    <string>&amp;Open project...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionLoadSession">
+   <property name="text">
+    <string>Load session...</string>
+   </property>
+  </action>
+  <action name="actionCloseProject">
+   <property name="text">
+    <string>&amp;Close project...</string>
+   </property>
+  </action>
+  <action name="actionCloseAllProjects">
+   <property name="text">
+    <string>Close &amp;All projects</string>
+   </property>
+  </action>
+  <action name="actionSaveData">
+   <property name="text">
+    <string>Save &amp;data...</string>
+   </property>
+  </action>
+  <action name="actionSaveSession">
+   <property name="text">
+    <string>Save session...</string>
+   </property>
+  </action>
+  <action name="actionSaveMovie">
+   <property name="text">
+    <string>Save &amp;movie...</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionToolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Toolbar</string>
+   </property>
+  </action>
+  <action name="actionStatusBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Status Bar</string>
+   </property>
+  </action>
+  <action name="actionProjectDock">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Project &amp;Manager</string>
+   </property>
+  </action>
+  <action name="actionGraphNew">
+   <property name="text">
+    <string>&amp;New...</string>
+   </property>
+  </action>
+  <action name="actionGraphModify">
+   <property name="text">
+    <string>&amp;Modify...</string>
+   </property>
+  </action>
+  <action name="actionWindowCascade">
+   <property name="text">
+    <string>&amp;Cascade</string>
+   </property>
+  </action>
+  <action name="actionWindowTileH">
+   <property name="text">
+    <string>Tile &amp;horizontally</string>
+   </property>
+  </action>
+  <action name="actionWindowTileV">
+   <property name="text">
+    <string>Tile &amp;vertically</string>
+   </property>
+  </action>
+  <action name="actionWindowArrange">
+   <property name="text">
+    <string>Arrange &amp;Icons</string>
+   </property>
+  </action>
+  <action name="actionWindowCloseAll">
+   <property name="text">
+    <string>Close &amp;All</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>&amp;About Video...</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
